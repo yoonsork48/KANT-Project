@@ -1,4 +1,4 @@
-# ========== 상품 클래스 ===========
+# ========== 상품 클래스 ============= == == == == == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 class Product:
     next_number = 1                                                 # 상품마다 번호를 매김
 
@@ -27,7 +27,7 @@ class Product:
         return self.__qty
 
 
-# ========== 장바구니 클래스 ===========
+# ========== 장바구니 클래스 ============= == == == == == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 class ShoppingCart:
 
     def __init__(self):                                             # 장바구니 생성
@@ -74,26 +74,26 @@ class ShoppingCart:
             del self.bucket[number]
         print(f"{products[number].name} {qty}개를 뺐습니다.")
 
-    def subtotal(self, products):
-        total = 0
-        for number, qty in self.bucket.items():
-            product = products[number]
-            total += product.price * qty
-        return total
+    def subtotal(self, products):                                   # 장바구니에 남은 물건 계산
+        total = 0                                                   # 누적 합계 초기하
+        for number, qty in self.bucket.items():                     # 장바구니 상품을 하나씩 순회
+            product = products[number]                              # 상품 번호로 상품 객체를 조회
+            total += product.price * qty                            # 가격 x 수량을 합계에 더함
+        return total    
 
-    def show(self, products):
-        if not self.bucket:
-            print("장바구니가 비어 있습니다.")
+    def show(self, products):                                       # 장바구니 현황 보여주기
+        if not self.bucket:                                         # 딕셔너리가 비어있는지 확인.
+            print("장바구니가 비어 있습니다.")                      # 비어있다면 해당 메시지 출력후 종료
             return
 
         print("\n" + "-" * 45)
         print("[장바구니]")
-        for number, qty in self.bucket.items():
-            product = products[number]
-            price = product.price * qty
-            print(f"{number}. {product.name:<12} x {qty:<3} {price:>10,}원")
+        for number, qty in self.bucket.items():                     # 담긴 상품들의 정보 조회 및 소계 계산
+            product = products[number]                              #   - 상품명
+            price = product.price * qty                             #   - 상품의 소계(가격x갯수)
+            print(f"{number}. {product.name:<12} x {qty:<3} {price:>10,}원")    # 출력물(왼쪽 정렬, 최소12칸/왼쪽 정렬, 최소3칸/오른쪽 정렬, 최소 10칸, 천 단위 쉼표)
         print("-" * 45)
-        print(f"총 상품 금액: {self.subtotal(products):,}원")
+        print(f"총 상품 금액: {self.subtotal(products):,}원")       #  - 총 금액( 기존 메서드 재사용에 의의)
 
     def checkout(self, products):
         if not self.bucket:
@@ -124,7 +124,7 @@ class ShoppingCart:
         print("결제가 완료되었습니다. 장바구니를 초기화했습니다.")
         return True
 
-# ========== 쇼핑몰 클래스 ===========
+# ========== 쇼핑몰 클래스 ============= == == == == == = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 class ShoppingMall:
     def __init__(self):
         self.product_list = [
